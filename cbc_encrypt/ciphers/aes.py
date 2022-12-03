@@ -27,14 +27,6 @@ def decrypt(ciphertext, key):
     return unpad(cipher.decrypt(b64decode(ciphertext.encode())), 16).decode()
 
 
-def unpad_pkcs5(s):
-
-    null_ch = b'\0'
-    pos = len(s) - 1
-    while (s[pos] == null_ch):
-        pos -= 1
-
-    return s[0:-pos]
 
 
 '''
