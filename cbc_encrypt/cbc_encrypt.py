@@ -63,7 +63,8 @@ def cbc_decrypt(data, decrypt_func):
     encrypted_blocks = []
 
     for i in range(len(data), MSG_BLOCK_SIZE):
-        encrypted_blocks.append(cipher_text[i:i+MSG_BLOCK_SIZE])
+        encrypted_blocks.append(cipher_text[i:i+MSG_BLOCK_SIZE].encode())
+    #print(f"{type(encrypted_blocks[0])}")
 
     plain_text = []
 
@@ -76,7 +77,7 @@ def cbc_decrypt(data, decrypt_func):
     pad_text = "".join(plain_text)
     return unpad_pkcs5(pad_text)
 
-
+'''
 if __name__ == "__main__":
 
     key = gen_key(2048)
@@ -95,3 +96,4 @@ if __name__ == "__main__":
 
     plain_msg = cbc_decrypt(msg, lambda x: decrypt_rsa(x, private_key))
     print(f"decrypt message = {plain_msg}")
+'''

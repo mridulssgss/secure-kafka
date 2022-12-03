@@ -37,7 +37,6 @@ def dump_private_key(key_pair, key_file):
     put_rsa_key(key_pair.exportKey('PEM'), key_file)
 
 
-'''
 if __name__ == '__main__':
     key = RSA.generate(2048)
     pub_key_path = "pub_key.pem"
@@ -57,4 +56,3 @@ if __name__ == '__main__':
     msg = decrypt_rsa(private_key, en_msg)
 
     print(f"decrypt msg = {msg}")
-'''

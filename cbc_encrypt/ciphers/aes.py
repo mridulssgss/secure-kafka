@@ -38,44 +38,17 @@ def unpad_pkcs5(s):
     return s[0:-pos]
 
 
-def encrypt_aes(key, msg):
-    return encrypt_aes_bytes(key, msg.encode())
 
 
-def encrypt_aes_bytes(key, msg):
-
-    # print(f"AES block size = {AES.block_size}")
-    # print(f"msg size {msg}")
-    msg_sz = len(msg)
-    if msg_sz % AES.block_size != 0:
-        msg = pad_pkcs5(msg)
-    # make an AES object with key,mode ecb
-    aes_obj = AES.new(key, AES.MODE_ECB)
-    cipher_text = aes_obj.encrypt(msg)
-
-    return cipher_text
-
-
-def decrypt_aes_bytes(key, msg):
-    aes_obj = AES.new(key, AES.MODE_ECB)
-    p_text = aes_obj.decrypt(msg)
-
-    return unpad_pkcs5(p_text)
-
-
-def decrypt_aes(key, msg):
-    return decrypt_aes_bytes(key, msg).decode()
-
-
-'''
 if __name__ == '__main__':
-    str = input()
+    str = input("Enter Input: ")
     key = gen_key()
     estr = encrypt_aes(key, str)
     print(f"Encrypted message = {estr}")
+    print(f"Encrypted message = ")
     dstr = decrypt_aes(key, estr)
+    print(dstr)
     if (str == dstr):
         print(f"Decrypted message = {dstr}")
     else:
         print(f"Decryption failed")
-'''
