@@ -4,6 +4,8 @@ from Crypto.Random import get_random_bytes
 from base64 import b64encode, b64decode
 from Crypto import Random
 
+# setting iv to 16 random bytes
+iv = Random.get_random_bytes(16)
 
 def gen_key(bits=256):
     byte_size = 8
