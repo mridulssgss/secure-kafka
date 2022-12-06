@@ -5,7 +5,8 @@ from base64 import b64encode, b64decode
 from Crypto import Random
 
 # setting iv to 16 random bytes
-iv = Random.get_random_bytes(16)
+iv = Random.get_random_bytes(128)
+
 
 def gen_key(bits=256):
     byte_size = 8
@@ -19,19 +20,17 @@ def put_aes_key(key, key_file):
         outfile.write(key)
 
 
-def encrypt(plaintext, key):
+def encrypt_aes(plain_text, key):
+    iv = get_random_bytes(AES.block_size)
     cipher = AES.new(key, AES.MODE_CBC, iv)
-    return b64encode(cipher.encrypt(pad(plaintext.encode(), 16))).decode()
+    return b64encode(iv + cipher.encrypt(pad(plain_text.encode('utf-8'), AES.block_size)))
 
 
-def decrypt(ciphertext, key):
+def decrypt_aes(ciphertext, key):
     cipher = AES.new(key, AES.MODE_CBC, iv)
-    return unpad(cipher.decrypt(b64decode(ciphertext.encode())), 16).decode()
+    return unpad(cipher.decrypt(b64decode(ciphertext.encode())), 256).decode()
 
 
-
-
-'''
 if __name__ == '__main__':
     str = input("Enter Input: ")
     key = gen_key()
@@ -44,4 +43,3 @@ if __name__ == '__main__':
         print(f"Decrypted message = {dstr}")
     else:
         print(f"Decryption failed")
-'''
