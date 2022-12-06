@@ -1,0 +1,3 @@
+Sample file with contents
+done
+exiting
